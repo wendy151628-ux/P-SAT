@@ -5,105 +5,82 @@
 
 ---
 
-## 1. 노인의 사회적 고립 정책 효과 측정 모델 개발
+## 1. 사회적 고립 노인의 행복에 대한 정책 효과 정량화
 
-보건복지부 노인실태조사 데이터를 기반으로 사회적 고립을 정량화하고, 정책 효과를 시뮬레이션 가능한 구조로 설계한 프로젝트입니다.
+> 학부 데이터분석학회 프로젝트
 
-### Project Overview
-- 사회적 고립을 복합 요인 기반 지수(Index)로 재정의
-- 요인분석 기반 고립 지수 도출
-- XGBoost, LightGBM 기반 모델링
-- SHAP Value를 활용한 변수 영향력 해석
-- R synthpop을 활용한 합성데이터 생성
-- 정책 변수 변화에 따른 시뮬레이션 구조 구현
+### Overview
 
-### Tech Stack
-- Python: pandas, numpy, scipy, scikit-learn, xgboost, lightgbm, shap
-- Statistical Methods: Chi-square Test, Factor Analysis, Cramer's V
-- R: synthpop (CART 기반 합성데이터 생성)
+사회적 고립 노인을 대상으로 한 정책 개입이 행복감에 미치는 영향을 통계적으로 정량화한 프로젝트입니다.
+블랙박스 모델을 지양하고 **모든 변수의 해석 가능성**을 최우선으로 설계했습니다.
+
+분석 결과가 단순한 수치로 끝나는 게 아니라, "이 정책 변수가 한 단위 변화했을 때 행복감의 어느 수준으로 이동할 확률이 얼마나 바뀌는가"를 명확하게 제시할 수 있도록 모델 설계 단계에서부터 해석력을 고려했습니다.
+
+### Data & Methods
+
+- **데이터**: 사회적 고립 노인 대상 설문조사 데이터
+- **전처리**: 요인분석(Factor Analysis)을 통한 잠재변수 추출 및 다중공선성 제거
+- **모델**: 누적로짓모델(Cumulative Logit Model, Proportional Odds Model)
+  - 종속변수(행복감)의 순서형 특성을 반영한 모델 선택
+  - 각 독립변수의 오즈비(Odds Ratio) 기반 해석으로 정책 효과 수치화
+  - 변수 하나의 변화가 행복 수준 전환 확률에 미치는 영향을 직접 제시
 
 ### Key Contributions
-- 범주형 변수 독립성 검정 기반 변수 선별
-- 요인별 설명 분산을 반영한 고립지수 설계
-- 클러스터링 기반 위험군 cut-off 설정
-- SHAP 기반 설명 가능한 모델 구현
-- 합성데이터 기반 정책 효과 분석 구조 설계
 
-### Skills Gained
-- 정책·사회 데이터를 정량 지표로 구조화하는 능력
-- 통계 분석과 머신러닝 결합 설계 역량
-- 설명 가능한 AI 기반 해석 경험
-- End-to-End 분석 수행 경험
+- 해석력을 유지하기 위해 전처리 단계부터 블랙박스 모델 배제 원칙 수립
+- 요인분석으로 설문 문항 간 잠재구조 파악 및 변수 통합
+- 누적로짓모델의 비례오즈 가정 검정 및 모델 적합도 평가
+- 정책 담당자가 직접 활용 가능한 형태로 효과 크기 시각화
+
+### Skills
+
+`R / Python` `Factor Analysis` `Cumulative Logit Model` `Ordinal Regression` `Survey Data`
 
 ---
 
-## 2. 미국 도소매 시장 동향 분석 및 중소기업 수출 기회 발굴 모델
+## 2. 중소기업 수출 타이밍 추천 시스템
 
-미국 수입 데이터, NAICS 산업 코드, 거시경제 지표를 활용하여 산업별 시장 진입 타이밍과 위험 지수를 산출한 프로젝트입니다.
+> 학부 데이터분석학회 팀장 프로젝트
 
-### Project Overview
-- 미국 총 수입액 대비 對한국 수입액 기반 시장 경쟁력 지표 설계
-- BCG Matrix 논리를 확장한 시장 진입 판단 구조 구축
-- 시계열 분해 및 파생변수 설계
-- PCA 기반 기업 위험 지수 산출
-- Prophet 기반 시계열 결측치 보간
-- 산업·관세·거시경제 지표 통합 위험 모델 구축
+### Overview
 
-### Tech Stack
-- Python: pandas, numpy, statsmodels, scikit-learn(PCA), prophet
-- Time Series: Additive Decomposition, Polynomial Regression
-- Scaling: MinMax Scaling
-- Multivariate Model: Dynamic Factor Model
+중소기업이 특정 국가·품목에 대한 수출 진입 시점을 판단할 수 있도록 돕는 추천 시스템입니다.
+경제·경영학과 학생들과의 협업을 통해 **데이터 수치와 경제적 의미를 동시에 고려한 변수 설계**가 핵심이었습니다.
 
-### Key Contributions
-- HS Code → NAICS 코드 매핑을 통한 산업 단위 통합
-- 3차 회귀 기반 추세 증감 지표 설계
-- 1차 미분 분산 기반 변동성 지표 설계
-- PCA 기반 가중치 산출 및 기업 지수 설계
-- 관세(AHS Weighted Average) 반영 위험 지수 설계
+단순 통계 모델에 그치지 않고, 소비자 관심도를 반영하는 비정형 데이터(유튜브 댓글·뉴스)를 정형화하여 통합하는 end-to-end 파이프라인을 구축했습니다.
 
-### Skills Gained
-- 산업·무역 데이터 기반 시장 분석 역량
-- 시계열 데이터 구조적 신호 추출 능력
-- 파생변수 설계 및 지수화 경험
-- 복수 지표 통합 의사결정 모델 설계 경험
+### Architecture
 
----
+```
+[거시경제 지표]           [비정형 텍스트 데이터]
+ - 환율, 무역수지           - 유튜브 댓글 크롤링
+ - 수출입 통계              - 뉴스 기사 크롤링
+ - 경기선행지수             
+        ↓                          ↓
+ [범국가 지표 통합]        [감성분석 / 관심도 지수화]
+ (비즈니스 의미 검토)       (텍스트 → 정형 수치 변환)
+        ↓                          ↓
+             [통합 시계열 구성]
+                    ↓
+         [수출 적기 타이밍 추천]
+```
 
-## 3. 시계열 다중 분류 해커톤
+### Data & Methods
 
-0~499 시계열 데이터 기반 다중 분류 문제 해결 프로젝트입니다.
-
-### Problem Definition
-- 587,880개 결측치 존재
-- Label 0/1/2 다중 분류
-- 클래스 불균형 존재
-- 범주형 + 시계열 혼합 데이터
-
-### Tech Stack
-- Python: pandas, numpy, scipy, scikit-learn
-- Models: XGBoost, LightGBM, KNN, Logistic Regression, CNN
-- Imbalance Handling: SMOTE, Random Over/Under Sampling
-- Missing Value Handling: FFT 기반 보간
+- **정형 데이터**: 국가별 거시경제 지표(환율, 무역수지, 경기선행지수 등) 수집 및 범국가 통합
+  - 국가마다 지표 정의·발표 주기·신뢰도가 달라 비즈니스 관점의 보정 기준 수립
+- **비정형 데이터**: 유튜브 댓글·뉴스 크롤링 → 키워드 빈도·감성분석으로 관심도 수치화
+- **통합 모델링**: 정형·비정형 데이터를 단일 시계열로 통합하여 타이밍 추천 로직 구현
 
 ### Key Contributions
-- 결측치 위치 분석 및 연속 구간 패턴 확인
-- 선형·스플라인·FFT 비교 후 FFT 채택
-- 클래스 불균형 해결 전략 실험
-- Scaling 적용 시 성능 저하 분석
-- 트리 기반 모델에서 안정적 성능 확보
 
-### Skills Gained
-- 시계열 결측치 복원 설계 역량
-- 주파수 도메인 기반 신호 처리 경험
-- 다양한 모델 비교 및 실험 설계 능력
-- 데이터 특성 기반 전처리 전략 수립 경험
+- 팀장으로 경제·경영 전공자와의 협업 체계 설계 및 도메인 지식 반영 프로세스 수립
+- 비정형 데이터를 정형 지표로 변환하는 전처리 파이프라인 구현
+- 거시지표 범국가 통합 과정에서 데이터 정합성 및 비즈니스 맥락 검토
+- 최종 추천 결과를 사용자가 직관적으로 해석할 수 있는 형태로 출력
+
+### Skills
+
+`Python` `Web Crawling` `NLP / Sentiment Analysis` `Time Series` `Macroeconomic Indicators` `Cross-country Data Integration`
 
 ---
-
-## Core Competencies
-- End-to-End 데이터 분석 수행 능력
-- 통계 기반 검정 및 머신러닝 모델링 역량
-- 시계열·정책·산업 데이터 분석 경험
-- 지수(Index) 설계 및 의사결정 모델 구조화 능력
-- 설명 가능한 모델 기반 인사이트 도출 역량
